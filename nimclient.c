@@ -41,7 +41,7 @@ int main()
             char serverMessage[serverMessagelen];
             recv(sock, &serverMessage, serverMessagelen, 0);    //Ricezione messaggio 
 
-            fprintf(stderr, "Server: %s\n", serverMessage);
+            fprintf(stdout, "Server: %s\n", serverMessage);
 
             if(!strncmp(serverMessage, "Partita terminata", serverMessagelen)){
                 return 0;
@@ -56,23 +56,23 @@ int main()
             int stateStack[2];
             int selectedStack, elementsToRemove;
 
-            fprintf(stderr, "Ricezione stato partita\n");
+            fprintf(stdout, "Ricezione stato partita\n");
             int r = recv(sock, &stateStack, sizeof(stateStack), 0);
-            fprintf(stderr, "Dati ricevuti: %d\n", r);
-            fprintf(stderr, "Visualizzazione stato partita\n");
+            fprintf(stdout, "Dati ricevuti: %d\n", r);
+            fprintf(stdout, "Visualizzazione stato partita\n");
             printStat(stateStack);
 
-            fprintf(stderr, "Mossa richiesta\n");
-            fprintf(stderr, "Da che pila vuoi togliere elementi? (1 o 2)\n");
+            fprintf(stdout, "Mossa richiesta\n");
+            fprintf(stdout, "Da che pila vuoi togliere elementi? (1 o 2)\n");
             while(scanf("%d", &selectedStack) <= 0 || !(selectedStack==1 || selectedStack==2) || stateStack[selectedStack-1]==0){
                 fprintf(stderr, "Inserisci un valore valido!\n");
-                fprintf(stderr, "Da che pila vuoi togliere elementi? (1 o 2)\n");
+                fprintf(stdout, "Da che pila vuoi togliere elementi? (1 o 2)\n");
             }
 
-            fprintf(stderr,"Quanti elementi vuoi togliere?\n");
+            fprintf(stdout,"Quanti elementi vuoi togliere?\n");
             while(scanf("%d", &elementsToRemove) <= 0 || elementsToRemove>stateStack[selectedStack-1] || elementsToRemove<=0){
                 fprintf(stderr, "Inserisci un valore valido!\n");
-                fprintf(stderr, "Quanti elementi vuoi togliere?\n");
+                fprintf(stdout, "Quanti elementi vuoi togliere?\n");
             }
 
             stateStack[selectedStack-1] = stateStack[selectedStack-1] - elementsToRemove;
@@ -84,7 +84,7 @@ int main()
 
     close(sock);
 
-    fprintf(stderr, "Partita terminata\n");
+    fprintf(stdout, "Partita terminata\n");
 
     return 0;
 }
@@ -99,8 +99,8 @@ void printStat(int *stat){
     int stack1 = stat[0];
     int stack2 = stat[1];
 
-    fprintf(stderr, "Situazione pile:\n");
-    fprintf(stderr, "Pila 1 \t Pila 2\n");
-    fprintf(stderr, "%d \t %d\n", stack1, stack2);
+    fprintf(stdout, "Situazione pile:\n");
+    fprintf(stdout, "Pila 1 \t Pila 2\n");
+    fprintf(stdout, "%d \t %d\n", stack1, stack2);
 
 }
